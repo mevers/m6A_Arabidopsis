@@ -1,0 +1,82 @@
+Invoking:
+  getsize ./ss_candidates.fa 1> $metrics
+Finished invoke:
+  name: count_seqs  status: 0  time: 0.002605
+Invoking:
+  fasta-most -min 50 < ./ss_candidates.fa 1> $metrics
+Finished invoke:
+  name: most_seqs  status: 0  time: 0.031865
+Invoking:
+  fasta-center -protein -len 100 < ./ss_candidates.fa 1> ./seqs-centered
+Finished invoke:
+  name: center_seqs  status: 0  time: 0.037599
+Invoking:
+  fasta-shuffle-letters ./seqs-centered ./seqs-shuffled -kmer 2 -tag -dinuc -protein -seed 1
+Finished invoke:
+  name: shuffle_seqs  status: 0  time: 0.018313
+Invoking:
+  fasta-get-markov -nostatus -nosummary -protein -m 1 ./ss_candidates.fa ./background
+Finished invoke:
+  name: bg  status: 0  time: 0.003597
+Invoking:
+  getsize ./proteome.fa 1> $metrics
+Finished invoke:
+  name: count_seqs  status: 0  time: 0.033496
+Invoking:
+  fasta-center -protein -len 100 < ./proteome.fa 1> ./control-centered
+Finished invoke:
+  name: center_control  status: 0  time: 0.067232
+Invoking:
+  psp-gen -pos ./seqs-centered -neg ./control-centered -minw 6 -maxw 20 -protein 1> ./psp
+Finished invoke:
+  name: psp  status: 0  time: 18.5398
+Invoking:
+  meme ./seqs-centered -oc meme_out -mod zoops -nmotifs 3 -minw 6 -maxw 30 -bfile ./background -protein -psp ./psp -nostatus
+Finished invoke:
+  name: meme  status: 0  time: 45.336907
+Invoking:
+  dreme -v 1 -oc dreme_out -png -protein -p ./seqs-centered -n ./control-centered -e 0.05
+Finished invoke:
+  name: dreme  status: 0  time: 60.417744
+Invoking:
+  centrimo -seqlen 262 -verbosity 1 -oc centrimo_out -bfile ./background -neg ./proteome.fa ./ss_candidates.fa meme_out/meme.xml dreme_out/dreme.xml
+Finished invoke:
+  name: centrimo  status: 0  time: 0.09333
+Invoking:
+  tomtom -verbosity 1 -text -thresh 0.1 ./combined.meme ./combined.meme 1> ./motif_alignment.txt
+Finished invoke:
+  name: align  status: 0  time: 0.390955
+Invoking:
+  spamo -verbosity 1 -oc spamo_out_1 -bgfile ./background -primary 1 ./ss_candidates.fa meme_out/meme.xml meme_out/meme.xml dreme_out/dreme.xml
+Finished invoke:
+  name: spamo1  status: 0  time: 0.183238
+Invoking:
+  spamo -verbosity 1 -oc spamo_out_2 -bgfile ./background -primary 3 ./ss_candidates.fa meme_out/meme.xml meme_out/meme.xml dreme_out/dreme.xml
+Finished invoke:
+  name: spamo2  status: 0  time: 0.092868
+Invoking:
+  spamo -verbosity 1 -oc spamo_out_3 -bgfile ./background -primary GGGGR ./ss_candidates.fa dreme_out/dreme.xml meme_out/meme.xml dreme_out/dreme.xml
+Finished invoke:
+  name: spamo3  status: 0  time: 0.075372
+Invoking:
+  spamo -verbosity 1 -oc spamo_out_4 -bgfile ./background -primary VGBL ./ss_candidates.fa dreme_out/dreme.xml meme_out/meme.xml dreme_out/dreme.xml
+Finished invoke:
+  name: spamo4  status: 0  time: 0.07875
+Invoking:
+  fimo --parse-genomic-coord --verbosity 1 --oc fimo_out_1 --bgfile ./background --motif 1 meme_out/meme.xml ./ss_candidates.fa
+Finished invoke:
+  name: fimo1  status: 0  time: 0.115409
+Invoking:
+  fimo --parse-genomic-coord --verbosity 1 --oc fimo_out_2 --bgfile ./background --motif 3 meme_out/meme.xml ./ss_candidates.fa
+Finished invoke:
+  name: fimo2  status: 0  time: 0.046109
+Invoking:
+  fimo --parse-genomic-coord --verbosity 1 --oc fimo_out_3 --bgfile ./background --motif GGGGR dreme_out/dreme.xml ./ss_candidates.fa
+Finished invoke:
+  name: fimo3  status: 0  time: 0.019452
+Invoking:
+  fimo --parse-genomic-coord --verbosity 1 --oc fimo_out_4 --bgfile ./background --motif VGBL dreme_out/dreme.xml ./ss_candidates.fa
+Finished invoke:
+  name: fimo4  status: 0  time: 0.019052
+Writing output
+Done

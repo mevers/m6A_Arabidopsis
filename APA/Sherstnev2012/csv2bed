@@ -1,0 +1,16 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+while (my $line = <>) {
+    chomp($line);
+    if ($line !~ /Strand/) {
+	my @arr = split("\t", $line);
+	my $id = join("|", $arr[0], $arr[5]);
+	$arr[1] =~ s/chr/Chr/g;
+	$arr[2] =~ s/fwd/+/g;
+	$arr[2] =~ s/rev/-/g;
+	printf("%s\n", join("\t", $arr[1], $arr[3]-1, $arr[3], $id, 0, $arr[2]));
+    }
+}

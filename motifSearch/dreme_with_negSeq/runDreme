@@ -1,0 +1,5 @@
+#!/bin/bash
+
+dreme -mink 3 -maxk 12 -oc . -p ../../interactome/ss_candidates.fa -n ../../interactome/proteome.fa -protein -norc -png -e 0.1
+#mast -oc with_negSeq -dblist motif_databases/FLY with_negSeq/dreme.xml ../interactome/ss_candidates.fa 
+

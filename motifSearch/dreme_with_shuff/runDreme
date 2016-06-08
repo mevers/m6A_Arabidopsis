@@ -1,0 +1,4 @@
+#!/bin/bash
+
+dreme -mink 3 -maxk 30 -oc . -p ../../interactome/ss_candidates.fa -protein -norc -png -e 0.1
+

@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+while (my $line = <>) {
+    chomp($line);
+    my @arr = split("\t", $line);
+    if ($arr[2] eq "gene") {
+	(my $id) = $line =~ /ID=(\w+);*/;
+	printf("%s\n", join("\t", $arr[0], $arr[3], $arr[4], $id, 0, $arr[6]));
+    }
+}

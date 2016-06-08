@@ -1,0 +1,23 @@
+# 0-order Markov frequencies from file ../../interactome/ss_candidates.fa
+# seqs: 177    min: 64    max: 2157    avg: 462.1    sum: 81785    alph: Protein
+# order 0
+A 6.861e-02
+C 1.351e-02
+D 5.167e-02
+E 6.479e-02
+F 3.677e-02
+G 8.993e-02
+H 2.291e-02
+I 4.110e-02
+K 6.092e-02
+L 7.279e-02
+M 2.619e-02
+N 4.471e-02
+P 5.851e-02
+Q 4.660e-02
+R 6.637e-02
+S 8.620e-02
+T 4.695e-02
+V 6.205e-02
+W 7.838e-03
+Y 3.158e-02

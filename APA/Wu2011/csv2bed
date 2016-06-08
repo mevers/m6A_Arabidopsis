@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+while (my $line = <>) {
+    chomp($line);
+    if ($line !~ /polyA_site/) {
+	my @arr = split("\t", $line);
+	my $id = join("|", $arr[4], $arr[2]);
+	printf("%s\n", join("\t", $arr[0], $arr[3]-1, $arr[3], $id, 0, $arr[1]));
+    }
+}

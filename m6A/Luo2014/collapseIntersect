@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+my %ht = ();
+while (my $line = <>) {
+    chomp($line);
+    my @arr = split("\t", $line);
+    my $id = join("_", @arr[0..4]);
+    my @entry = ();
+    if (exists($ht{$id})) {
+	@entry = @{$ht{$id}};
+    }
+    push(@entry, [@arr]);
+    $ht{$id} = [@entry];
+}
+
+foreach my $key (sort keys %ht) {
+    my @entry = @{$ht{$key}};
+    my @arr = split("_", $key);
+    if (scalar(@entry) == 1) {
+	printf("%s\t%s\n", join("\t", @arr), $entry[0]->[11]);
+    } else {
+	my $id = (split("\\|", $arr[3]))[0];
+	my $strand = "UNKNOWN";
+	for (my $i = 0; $i < scalar(@entry); $i++) {
+	    $strand.=sprintf(";%s|%s", $entry[$i]->[9], $entry[$i]->[11]);
+	    if ($entry[$i]->[9] eq $id) {
+		$strand = $entry[$i]->[11];
+		last;
+	    }
+	}
+	printf("%s\t%s\n", join("\t", @arr), $strand);
+    }
+#    printf("%s\t%s\n", $key, scalar(@entry));
+}

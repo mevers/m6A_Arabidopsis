@@ -1,0 +1,4 @@
+#!/bin/bash
+
+meme-chip -protein -oc . -neg ../../interactome/proteome.fa -dreme-e 0.05 ../../interactome/ss_candidates.fa 
+

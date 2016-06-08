@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+while (my $line = <>) {
+    if ($line !~ /FDR/) {
+	chomp($line);
+	my @arr = split(",", $line);
+	printf("%s\n", join("\t", @arr[1..3], join("|", $arr[8], $arr[7]), 0, "*"));
+    }
+}

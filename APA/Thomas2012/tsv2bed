@@ -1,0 +1,27 @@
+#!/usr/bin/perl 
+
+use warnings;
+use strict;
+
+my %ht = ();
+open(my $fh, "../../annotation/genesList.txt");
+while (my $line = <$fh>) {
+    chomp($line);
+    my @arr = split("\t", $line);
+    $ht{$arr[0]} = [$arr[2], $arr[5]];
+}
+close($fh);
+
+
+while (my $line = <>) {
+    chomp($line);
+    if ($line !~ /coord/) {
+	my @arr = split("\t", $line);
+	if (exists($ht{$arr[2]})) {
+	    printf("%s\n", join("\t", $ht{$arr[2]}->[0], $arr[1]-1, $arr[1], join("|", $arr[2], $arr[0]), 0, $ht{$arr[2]}->[1]));
+	}
+	else {
+#	    printf("No entry for %s\n", $arr[2]);
+	}
+    }
+}
