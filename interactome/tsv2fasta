@@ -2,30 +2,33 @@
 
 use warnings;
 use strict;
+use Archive::Tar;
 
 my $fh;
-
 
 # Store uniprot sequences into hash
 my %fasta = ();
 my $seq = "";
 my $header = "";
-open($fh, "../proteinSeq/uniprot/uniprot_sprot.fasta");
-while (my $line = <$fh>) {
-    if ($line =~ /^>/) {
-	$fasta{$header} = $seq if ($seq);
-	$header = (split("\\|", $line))[1];
-	$seq = "";
-    }         
-    else {    
-	$line =~ s/\s+//g;
-	$seq .= $line;
-    }         
+my $tar = Archive::Tar -> new();
+$tar->read("../proteinSeq/uniprot/uniprot_sprot.fasta.tar.gz");
+foreach my $file ($tar -> list_files) {
+    my @data = split("\n", $tar -> get_content($file));
+    foreach my $line (@data) {
+	if ($line =~ /^>/) {
+	    $fasta{$header} = $seq if ($seq);
+	    $header = (split("\\|", $line))[1];
+	    $seq = "";
+	}         
+	else {    
+	    $line =~ s/\s+//g;
+	    $seq .= $line;
+	}
+    }
+    if ($seq) { # handle last sequence
+	$fasta{$header} = $seq;
+    }    
 }
-close($fh);
-if ($seq) { # handle last sequence
-    $fasta{$header} = $seq;
-}    
 
 my @fn = ("ss_candidates.tsv", "proteome.tsv");
 for (my $i = 0; $i < scalar(@fn); $i++) {
@@ -37,10 +40,16 @@ for (my $i = 0; $i < scalar(@fn); $i++) {
 	chomp($line);
 	if ($line !~ /Majority/) {
 	    my @arr = split("\t", $line);
-	    my $id = (split(";", $arr[2]))[0];
-	    if (exists($fasta{$id})) {
-		printf($fhOut ">%s\n", $id);
-		printf($fhOut "%s\n", $fasta{$id});
+	    my @ids = split(";", $arr[2]);
+	    for (my $i=0; $i < scalar(@ids); $i++) {
+		if (exists($fasta{$ids[$i]})) {
+		    printf($fhOut ">%s\n", $ids[$i]);
+		    printf($fhOut "%s\n", $fasta{$ids[$i]});
+		    last;
+		}
+		if ($i == scalar(@ids) - 1) {
+		    printf("[WARNING] No entry found for %s\n", join(";", @ids));
+		}
 	    }
 	}
     }

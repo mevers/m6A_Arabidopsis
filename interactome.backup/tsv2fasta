@@ -1,0 +1,51 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+use Archive::Tar;
+
+my $fh;
+
+
+# Store uniprot sequences into hash
+my %fasta = ();
+my $seq = "";
+my $header = "";
+open($fh, "../proteinSeq/uniprot/uniprot_sprot.fasta");
+while (my $line = <$fh>) {
+    if ($line =~ /^>/) {
+	$fasta{$header} = $seq if ($seq);
+	$header = (split("\\|", $line))[1];
+	$seq = "";
+    }         
+    else {    
+	$line =~ s/\s+//g;
+	$seq .= $line;
+    }         
+}
+close($fh);
+if ($seq) { # handle last sequence
+    $fasta{$header} = $seq;
+}    
+
+my @fn = ("ss_candidates.tsv", "proteome.tsv");
+for (my $i = 0; $i < scalar(@fn); $i++) {
+    open($fh, $fn[$i]) or die(sprintf("[ERROR] Could not find file %s\n", $fn[$i]));
+    my $fnOut = $fn[$i];
+    $fnOut =~ s/tsv/fa/g;
+    open(my $fhOut, ">", $fnOut);
+    while (my $line = <$fh>) {
+	chomp($line);
+	if ($line !~ /Majority/) {
+	    my @arr = split("\t", $line);
+	    my $id = (split(";", $arr[2]))[0];
+	    if (exists($fasta{$id})) {
+		printf($fhOut ">%s\n", $id);
+		printf($fhOut "%s\n", $fasta{$id});
+	    }
+	}
+    }
+    close($fh);
+    close($fhOut);
+}
+
