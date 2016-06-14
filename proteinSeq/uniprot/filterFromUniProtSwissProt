@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Get UniProt TrEMBL database 
+# Note: The unpacked file is 28 GB
+wget ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_trembl.fasta.gz
+gunzip uniprot_trembl.fasta.gz
+
+# Get A.thaliana entries
+grep "Arabidopsis thaliana" uniprot_trembl.fasta > id_ath_uniprot_trembl.txt
+sed -i 's/^>//' id_ath_uniprot_trembl.txt
+
+# Filter based on A.thaliana IDs
+./faSomeRecords uniprot_trembl.fasta id_ath_uniprot_trembl.txt uniprot_trembl_ath.fasta
+
+# Get UniProt SwissProt database 
+# Note: The unpacked file is 28 GB
+wget ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz
+gunzip uniprot_sprot.fasta.gz
+
+# Get A.thaliana entries
+grep "Arabidopsis thaliana" uniprot_sprot.fasta > id_ath_uniprot_sprot.txt
+sed -i 's/^>//' id_ath_uniprot_sprot.txt
+
+# Filter based on A.thaliana IDs
+./faSomeRecords uniprot_sprot.fasta id_ath_uniprot_sprot.txt uniprot_sprot_ath.fasta
+
+# Concatenate fasta files and make tarball
+cat uniprot_trembl_ath.fasta uniprot_sprot_ath.fasta > uniprot_all_ath.fasta
+tar -cvzf uniprot_all_ath.fasta.tar.gz uniprot_all_ath.fasta
+tar -cvzf uniprot_sprot_ath.fasta.tar.gz uniprot_sprot_ath.fasta
+tar -cvzf uniprot_trembl_ath.fasta.tar.gz uniprot_trembl_ath.fasta

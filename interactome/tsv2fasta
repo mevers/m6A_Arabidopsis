@@ -11,7 +11,8 @@ my %fasta = ();
 my $seq = "";
 my $header = "";
 my $tar = Archive::Tar -> new();
-$tar->read("../proteinSeq/uniprot/uniprot_sprot.fasta.tar.gz");
+#$tar->read("../proteinSeq/uniprot/uniprot_sprot.fasta.tar.gz");
+$tar->read("../proteinSeq/uniprot/uniprot_all_ath.fasta.tar.gz");
 foreach my $file ($tar -> list_files) {
     my @data = split("\n", $tar -> get_content($file));
     foreach my $line (@data) {
@@ -41,14 +42,14 @@ for (my $i = 0; $i < scalar(@fn); $i++) {
 	if ($line !~ /Majority/) {
 	    my @arr = split("\t", $line);
 	    my @ids = split(";", $arr[2]);
-	    for (my $i=0; $i < scalar(@ids); $i++) {
-		if (exists($fasta{$ids[$i]})) {
-		    printf($fhOut ">%s\n", $ids[$i]);
-		    printf($fhOut "%s\n", $fasta{$ids[$i]});
+	    for (my $j=0; $j < scalar(@ids); $j++) {
+		if (exists($fasta{$ids[$j]})) {
+		    printf($fhOut ">%s\n", $ids[$j]);
+		    printf($fhOut "%s\n", $fasta{$ids[$j]});
 		    last;
 		}
-		if ($i == scalar(@ids) - 1) {
-		    printf("[WARNING] No entry found for %s\n", join(";", @ids));
+		if ($j == scalar(@ids) - 1) {
+		    printf("[WARNING] In %s: No entry found for %s\n", $fn[$i], join(";", @ids));
 		}
 	    }
 	}

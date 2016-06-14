@@ -1,4 +1,4 @@
 #!/bin/bash
 
 fasta-get-markov -protein ../../interactome/ss_candidates.fa > background.txt
-meme -oc . -protein -minw 3 -maxw 30 -evt 0.1 -nmotifs 100 -bfile background.txt ../../interactome/ss_candidates.fa 
+meme -oc . -protein -minw 3 -maxw 30 -evt 0.1 -nmotifs 100 -bfile background.txt -maxsize 500000 ../../interactome/ss_candidates.fa 

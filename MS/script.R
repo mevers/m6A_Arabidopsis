@@ -6,7 +6,48 @@ d <- sapply(fn, function(x) read.delim(x, sep = "\t", header = TRUE, stringsAsFa
 # Check column names of tables
 sapply(d, colnames);
 
-# Extract IBAQ values
+# Extract replicate IBAQ values
+IBAQ.rep <- list(interactome = d[[1]][, c(
+#                     "Protein.IDs",
+                     "log10.IBAQ.CCL.rep1",
+                     "log10.IBAQ.CCL.rep2",
+                     "log10.IBAQ.CCL.rep3")],
+                 proteome = d[[2]][, c(
+#                     "Protein.IDs",
+                     "Log10_IBAQ_rep1",
+                     "Log10_IBAQ_rep2")]);
+
+# Get rid of "Err:502" entries and turn into NAs
+IBAQ.rep <- lapply(IBAQ.rep, function(x) {
+               x[x == "Err:502"] <- "NaN"; return(x)});
+
+# Plot pairwise correlation
+panel.cor <- function(x, y, prefix = "r = ", cex.cor) {
+    usr <- par("usr");
+    on.exit(par(usr));
+    par(usr = c(0, 1, 0, 1));
+    test <- cor.test(x,y);
+    r <- test$estimate;
+    txt <- sprintf("%s %4.3f", prefix, r);
+    if(missing(cex.cor)) cex <- 0.5 / strwidth(txt);
+    Signif <- symnum(test$p.value, corr = FALSE, na = FALSE, 
+                     cutpoints = c(0, 0.001, 0.01, 0.05, 0.1, 1),
+                     symbols = c("***", "**", "*", ".", " "));
+    text(0.5, 0.5, txt, cex = cex * r);
+    text(0.8, 0.8, Signif, cex = cex, col = 2);
+}
+pdf("pairs_IBAQ_reps.pdf");
+pairs(IBAQ.rep[[1]], lower.panel = panel.cor);
+plot(IBAQ.rep[[2]], main = "", font.main = 1);
+ct <- cor.test(
+    as.numeric(IBAQ.rep[[2]][, 1]),
+    as.numeric(IBAQ.rep[[2]][, 2]));
+text(4, 8,
+     sprintf("r = %4.3f", ct$estimate),
+     cex = 2);
+dev.off();
+
+# Extract median IBAQ values
 IBAQ <- list(interactome = d[[1]][, c("Protein.IDs","log10.Median.CCL")],
              proteome = d[[2]][, c("Protein.IDs", "Log10.Median.IBAQ")]);
 

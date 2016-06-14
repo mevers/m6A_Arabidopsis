@@ -1,9 +1,9 @@
 # DREME 4.11.2
 #     command: dreme -mink 3 -maxk 30 -oc . -p ../../interactome/ss_candidates.fa -protein -norc -png -e 0.1
-#   positives: 177 from ../../interactome/ss_candidates.fa (Wed Jun 01 17:56:40 AEST 2016)
-#   negatives: 177 from shuffled positives
+#   positives: 300 from ../../interactome/ss_candidates.fa (Tue Jun 14 11:41:03 AEST 2016)
+#   negatives: 300 from shuffled positives
 #        host: JCSMR028060PD
-#        when: Wed Jun 08 09:41:53 AEST 2016
+#        when: Tue Jun 14 13:01:12 AEST 2016
 
 MEME version 4.11.2
 
@@ -37,8 +37,8 @@ J "Leucine or Isoleucine" = IL
 END ALPHABET
 
 Background letter frequencies (from dataset):
-A 0.069 C 0.014 D 0.052 E 0.065 F 0.037 G 0.090 H 0.023 I 0.041 K 0.061 L 0.073 M 0.026 N 0.045 P 0.059 Q 0.047 R 0.066 S 0.086 T 0.047 V 0.062 W 0.008 Y 0.032
+A 0.068 C 0.012 D 0.052 E 0.065 F 0.036 G 0.091 H 0.023 I 0.041 K 0.059 L 0.070 M 0.024 N 0.047 P 0.061 Q 0.047 R 0.064 S 0.089 T 0.048 V 0.062 W 0.008 Y 0.032
 
 
 # Stopping reason: E-value threshold exceeded
-#    Running time: 57.36 seconds
+#    Running time: 110.88 seconds

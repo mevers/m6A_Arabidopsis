@@ -1,8 +1,8 @@
 <dreme version="4.11.2" release="Thu May 05 14:58:55 2016 -0700">
   <model>
     <command_line>dreme -mink 3 -maxk 30 -oc . -p ../../interactome/ss_candidates.fa -protein -norc -png -e 0.1</command_line>
-    <positives name="ss candidates" count="177" file="../../interactome/ss_candidates.fa" last_mod_date="Wed Jun 01 17:56:40 AEST 2016" />
-    <negatives name="shuffled positive sequences" count="177" from="shuffled"/>
+    <positives name="ss candidates" count="300" file="../../interactome/ss_candidates.fa" last_mod_date="Tue Jun 14 11:41:03 AEST 2016" />
+    <negatives name="shuffled positive sequences" count="300" from="shuffled"/>
     <alphabet name="Protein" like="protein">
       <letter id="A" symbol="A" name="Alanine" colour="0000CC"/>
       <letter id="C" symbol="C" name="Cysteine" colour="0000CC"/>
@@ -30,15 +30,15 @@
       <letter id="J" symbol="J" equals="LI" name="Leucine or Isoleucine"/>
     </alphabet>
     <strands>none</strands>
-    <background A="0.069" C="0.014" D="0.052" E="0.065" F="0.037" G="0.090" H="0.023" I="0.041" K="0.061" L="0.073" M="0.026" N="0.045" P="0.059" Q="0.047" R="0.066" S="0.086" T="0.047" V="0.062" W="0.008" Y="0.032" from="dataset"/>
+    <background A="0.068" C="0.012" D="0.052" E="0.065" F="0.036" G="0.091" H="0.023" I="0.041" K="0.059" L="0.070" M="0.024" N="0.047" P="0.061" Q="0.047" R="0.064" S="0.089" T="0.048" V="0.062" W="0.008" Y="0.032" from="dataset"/>
     <stop evalue="0.1"/>
     <ngen>100</ngen>
     <add_pv_thresh>0.01</add_pv_thresh>
     <seed>1</seed>
     <host>JCSMR028060PD</host>
-    <when>Wed Jun 08 09:41:53 AEST 2016</when>
+    <when>Tue Jun 14 13:01:12 AEST 2016</when>
   </model>
   <motifs>
   </motifs>
-  <run_time cpu="57.32" real="57.36" stop="evalue"/>
+  <run_time cpu="110.81" real="110.88" stop="evalue"/>
 </dreme>
