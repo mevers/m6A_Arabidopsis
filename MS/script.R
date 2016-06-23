@@ -185,10 +185,16 @@ col <- c(
     rgb(143, 47, 139, alpha = alpha, maxColorValue = 255),
     rgb(19, 150, 219, alpha = alpha, maxColorValue = 255));
 col <- col[1:(length(groupIDs) - 1)];
+ret <- list();
 for (i in 2:length(groupIDs)) {
     lines(density(IBAQ[[2]][which(IBAQ[[2]][, 1] %in% groupIDs[[i]]), 2]),
           col = col[i - 1], type = "l", lwd = 2);
+    ttest <- ks.test(IBAQ[[2]][, 2],
+                    IBAQ[[2]][which(IBAQ[[2]][, 1] %in% groupIDs[[i]]), 2],
+                    alternative = "two.sided");
+    ret[[i - 1]] <- ttest;
 }
+names(ret) <- names(groupIDs)[2:length(groupIDs)];
 legend("topleft",
        sprintf("%s (N = %i)", names(groupIDs), sapply(groupIDs, length)),
        col = c("black", col),
