@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # RUn dreme
-dreme -mink 3 -maxk 12 -oc . -p ../../interactome/ss_candidates.fa -n ../../interactome/proteome.fa -protein -norc -png -e 0.1
+dreme -mink 3 -maxk 12 -oc . -p ../../interactome/ss_candidates.fa -n ../../interactome/proteome.fa -protein -norc -eps -e 0.1
 
 # Run mast
 mast -ev 1 -mt 1 -oc . dreme.xml ../../interactome/ss_candidates.fa
@@ -9,10 +9,10 @@ mv -f mast.html mast_ss_candidates.html
 mv -f mast.txt mast_ss_candidates.txt
 mv -f mast.xml mast_ss_candidates.xml
 
-mast -oc . dreme.xml ../../interactome/proteome.fa
+mast -ev 1 -mt 1 -oc . dreme.xml ../../interactome/proteome.fa
 mv -f mast.html mast_proteome.html
 mv -f mast.txt mast_proteome.txt
 mv -f mast.xml mast_proteome.xml
 
 # Run fimo
-fimo -oc . dreme.xml ../../interactome/ss_candidates.fa
+#fimo -oc . dreme.xml ../../interactome/ss_candidates.fa

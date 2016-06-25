@@ -1,6 +1,6 @@
 <dreme version="4.11.2" release="Thu May 05 14:58:55 2016 -0700">
   <model>
-    <command_line>dreme -mink 3 -maxk 12 -oc . -p ../../interactome/ss_candidates.fa -n ../../interactome/proteome.fa -protein -norc -png -e 0.1</command_line>
+    <command_line>dreme -mink 3 -maxk 12 -oc . -p ../../interactome/ss_candidates.fa -n ../../interactome/proteome.fa -protein -norc -eps -e 0.1</command_line>
     <positives name="ss candidates" count="300" file="../../interactome/ss_candidates.fa" last_mod_date="Tue Jun 14 11:41:03 AEST 2016" />
     <negatives name="proteome" count="8236" from="file" file="../../interactome/proteome.fa" last_mod_date="Tue Jun 14 11:41:03 AEST 2016" />
     <alphabet name="Protein" like="protein">
@@ -36,7 +36,7 @@
     <add_pv_thresh>0.01</add_pv_thresh>
     <seed>1</seed>
     <host>JCSMR028060PD</host>
-    <when>Tue Jun 14 11:41:40 AEST 2016</when>
+    <when>Fri Jun 24 18:13:12 AEST 2016</when>
   </model>
   <motifs>
     <motif id="m01" seq="GYG" length="3" nsites="261" p="102" n="772" pvalue="3.9e-030" evalue="4.3e-024" unerased_evalue="4.3e-024">
@@ -227,5 +227,5 @@
       <match seq="ANCN" p="7" n="6" pvalue="8.8e-008" evalue="9.0e-002"/>
     </motif>
   </motifs>
-  <run_time cpu="4488.13" real="4494.36" stop="evalue"/>
+  <run_time cpu="5155.83" real="5160.22" stop="evalue"/>
 </dreme>

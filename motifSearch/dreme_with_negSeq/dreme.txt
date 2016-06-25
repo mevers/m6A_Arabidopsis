@@ -1,9 +1,9 @@
 # DREME 4.11.2
-#     command: dreme -mink 3 -maxk 12 -oc . -p ../../interactome/ss_candidates.fa -n ../../interactome/proteome.fa -protein -norc -png -e 0.1
+#     command: dreme -mink 3 -maxk 12 -oc . -p ../../interactome/ss_candidates.fa -n ../../interactome/proteome.fa -protein -norc -eps -e 0.1
 #   positives: 300 from ../../interactome/ss_candidates.fa (Tue Jun 14 11:41:03 AEST 2016)
 #   negatives: 8236 from ../../interactome/proteome.fa (Tue Jun 14 11:41:03 AEST 2016)
 #        host: JCSMR028060PD
-#        when: Tue Jun 14 11:41:40 AEST 2016
+#        when: Fri Jun 24 18:13:12 AEST 2016
 
 MEME version 4.11.2
 
@@ -390,4 +390,4 @@ letter-probability matrix: alength= 20 w= 4 nsites= 7 E= 9.0e-002
 
 
 # Stopping reason: E-value threshold exceeded
-#    Running time: 4494.36 seconds
+#    Running time: 5160.22 seconds
